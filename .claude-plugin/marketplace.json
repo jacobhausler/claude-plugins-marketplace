@@ -1,0 +1,20 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "jacobhausler-claude-plugins-marketplace",
+  "description": "Personal Claude Code plugin marketplace",
+  "owner": {
+    "name": "Jacob Hausler",
+    "email": "jacob@hausler.cc"
+  },
+  "plugins": [
+    {
+      "name": "yt-playlist-curator",
+      "description": "Curate 'best of' YouTube music video playlists by researching an artist's discography, applying subjective curation criteria, finding official music videos, and creating YouTube playlists.",
+      "author": {
+        "name": "Jacob Hausler"
+      },
+      "source": "./plugins/yt-playlist-curator",
+      "category": "productivity"
+    }
+  ]
+}
