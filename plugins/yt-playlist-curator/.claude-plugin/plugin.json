@@ -1,7 +1,7 @@
 {
   "name": "yt-playlist-curator",
   "description": "Curate 'best of' YouTube music video playlists by researching an artist's discography, applying subjective curation criteria, finding official music videos, and creating YouTube playlists.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "Jacob Hausler"
   }
