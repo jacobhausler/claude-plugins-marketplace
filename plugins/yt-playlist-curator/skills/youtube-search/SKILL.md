@@ -11,7 +11,7 @@ For each song on the curated tracklist, find the best YouTube video — preferri
 
 ## Prerequisites
 
-A tracklist must exist at `~/code/ts-yt-playlist/research/[artist-slug]/tracklist.md`. If not, tell the user to run the curation phase first.
+A tracklist must exist at `~/.config/yt-playlist/research/[artist-slug]/tracklist.md`. If not, tell the user to run the curation phase first.
 
 ## Workflow
 
@@ -24,7 +24,7 @@ Read `tracklist.md` and extract the list of songs with their expected video type
 For each song, use the `yt-playlist` CLI:
 
 ```bash
-yt-playlist search "[artist] [song title] official music video" --max 5
+"${CLAUDE_PLUGIN_ROOT}/bin/yt-playlist" search "[artist] [song title] official music video" --max 5
 ```
 
 This returns JSON with: videoId, title, channelTitle, viewCount, duration, publishedAt.
@@ -78,7 +78,7 @@ Apply these heuristics to pick the best result:
 
 ### Step 4: Write Results
 
-Save to `~/code/ts-yt-playlist/research/[artist-slug]/video-matches.md`:
+Save to `~/.config/yt-playlist/research/[artist-slug]/video-matches.md`:
 
 ```markdown
 # Video Matches for Best of [Artist]

@@ -11,4 +11,8 @@ Personal plugin marketplace for Claude Code.
 ```
 /plugin marketplace add jacobhausler/claude-plugins-marketplace
 /plugin install yt-playlist-curator@jacobhausler-claude-plugins-marketplace
+/reload-plugins
+/yt-playlist-curator:setup
 ```
+
+The setup command walks you through everything: installing dependencies, creating a Google Cloud project, enabling the YouTube API, and authenticating.

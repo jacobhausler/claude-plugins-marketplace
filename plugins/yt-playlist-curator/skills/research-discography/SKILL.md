@@ -7,11 +7,11 @@ allowed-tools: [WebSearch, WebFetch, Read, Write, Bash, Glob]
 
 # Research Discography
 
-Systematically research an artist's full catalog to build a comprehensive picture of their music and music videos. All research is written to markdown files in `~/code/ts-yt-playlist/research/[artist-slug]/` so it persists across sessions.
+Systematically research an artist's full catalog to build a comprehensive picture of their music and music videos. All research is written to markdown files in `~/.config/yt-playlist/research/[artist-slug]/` so it persists across sessions.
 
 ## Resume Logic
 
-Before starting, check if `~/code/ts-yt-playlist/research/[artist-slug]/` already exists:
+Before starting, check if `~/.config/yt-playlist/research/[artist-slug]/` already exists:
 - If it does, read the files present and tell the user which phases are already complete
 - Offer to skip completed phases, redo specific ones, or start fresh
 - Only redo phases the user asks for

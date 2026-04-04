@@ -1,2 +1,3 @@
 *.DS_Store
 .claude/
+plugins/yt-playlist-curator/cli/node_modules/

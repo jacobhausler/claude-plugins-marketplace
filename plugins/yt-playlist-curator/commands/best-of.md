@@ -14,9 +14,15 @@ This command runs 4 phases in sequence, pausing for user confirmation between ea
 
 ### Phase 0: Setup & Resume Check
 
-1. Parse the artist name (and any criteria) from the arguments
-2. Convert artist name to a slug (lowercase, hyphens, no special chars)
-3. Check if `~/code/ts-yt-playlist/research/[artist-slug]/` exists
+1. **Check setup status** by running:
+   ```bash
+   bash "${CLAUDE_PLUGIN_ROOT}/scripts/check-setup.sh"
+   ```
+   If any value is `false`, tell the user: "Some setup is needed first. Run `/yt-playlist-curator:setup` to get started." Then stop.
+
+2. Parse the artist name (and any criteria) from the arguments
+3. Convert artist name to a slug (lowercase, hyphens, no special chars)
+4. Check if `~/.config/yt-playlist/research/[artist-slug]/` exists
    - If yes: read the existing files, show what's complete, and ask the user if they want to resume or start fresh
    - If no: create the directory and proceed
 
@@ -30,7 +36,7 @@ Use the **research-discography** skill to systematically research:
 - Fan/community favorites (Reddit, forums — deep cuts, beloved tracks)
 - Existing "best of" lists (cross-reference published rankings)
 
-All research is written to `~/code/ts-yt-playlist/research/[artist-slug]/`.
+All research is written to `~/.config/yt-playlist/research/[artist-slug]/`.
 
 **After research completes:** Tell the user what you found — how many albums, how many songs have music videos, any surprising findings. Ask if they want to review the research before moving to curation.
 
@@ -52,7 +58,7 @@ If the user provided criteria in the arguments, use those. Otherwise, confirm de
 
 Use the **youtube-search** skill to find the correct YouTube video for each song.
 
-- Use `yt-playlist search` CLI for API-powered search
+- Use `"${CLAUDE_PLUGIN_ROOT}/bin/yt-playlist" search` CLI for API-powered search
 - Verify matches against official channels, view counts, and durations
 - Flag any ambiguous or low-confidence matches
 
@@ -72,4 +78,4 @@ Use the **create-playlist** skill to build the YouTube playlist.
 - Always pause between phases for user confirmation
 - If any phase fails or has issues, address them before moving on
 - The user can stop at any phase and resume later — all data is persisted to disk
-- If the `yt-playlist` CLI is not set up, fall back to WebSearch for YouTube searches and output a manual URL list instead of creating the playlist via API
+- If the CLI is not set up, fall back to WebSearch for YouTube searches and output a manual URL list instead of creating the playlist via API

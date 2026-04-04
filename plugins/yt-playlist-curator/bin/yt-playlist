@@ -1,0 +1,3 @@
+#!/bin/bash
+PLUGIN_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+exec node "$PLUGIN_ROOT/cli/dist/index.js" "$@"

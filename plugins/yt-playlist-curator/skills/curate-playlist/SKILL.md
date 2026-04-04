@@ -15,7 +15,7 @@ Apply user-defined subjective criteria to research data to produce a final track
 
 ## Prerequisites
 
-Research must be complete. Read `~/code/ts-yt-playlist/research/[artist-slug]/synthesis.md` before starting. If it doesn't exist, tell the user to run the research phase first.
+Research must be complete. Read `~/.config/yt-playlist/research/[artist-slug]/synthesis.md` before starting. If it doesn't exist, tell the user to run the research phase first.
 
 ## Workflow
 
@@ -94,7 +94,7 @@ Iterate until the user approves. For each swap, explain what changes and why.
 
 ### Step 5: Write Final Tracklist
 
-Save to `~/code/ts-yt-playlist/research/[artist-slug]/tracklist.md`:
+Save to `~/.config/yt-playlist/research/[artist-slug]/tracklist.md`:
 
 ```markdown
 # Best of [Artist]: Music Video Playlist

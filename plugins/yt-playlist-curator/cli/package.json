@@ -1,0 +1,28 @@
+{
+  "name": "yt-playlist",
+  "version": "1.0.0",
+  "description": "YouTube playlist curator CLI — search, create, and manage playlists via YouTube Data API v3",
+  "main": "dist/index.js",
+  "bin": {
+    "yt-playlist": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["youtube", "playlist", "cli"],
+  "author": "Jacob Hausler",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "commander": "^14.0.3",
+    "googleapis": "^171.4.0",
+    "open": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.2",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  }
+}

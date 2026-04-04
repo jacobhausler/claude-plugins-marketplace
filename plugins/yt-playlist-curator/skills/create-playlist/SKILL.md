@@ -11,7 +11,7 @@ Create a YouTube playlist and add all matched videos using the `yt-playlist` CLI
 
 ## Prerequisites
 
-Video matches must exist at `~/code/ts-yt-playlist/research/[artist-slug]/video-matches.md`. If not, tell the user to run the YouTube search phase first.
+Video matches must exist at `~/.config/yt-playlist/research/[artist-slug]/video-matches.md`. If not, tell the user to run the YouTube search phase first.
 
 ## Workflow
 
@@ -24,19 +24,19 @@ Read `video-matches.md` and extract all video IDs and their confidence levels. P
 ### Step 2: Check Authentication
 
 ```bash
-yt-playlist auth status
+"${CLAUDE_PLUGIN_ROOT}/bin/yt-playlist" auth status
 ```
 
 If not authenticated or tokens are expired:
 1. Tell the user they need to authenticate
-2. Guide them to run: `! yt-playlist auth login`
+2. Guide them to run: `! "${CLAUDE_PLUGIN_ROOT}/bin/yt-playlist" auth login`
    (The `!` prefix runs it in the current session so the browser opens and the OAuth callback works)
 3. Wait for confirmation before proceeding
 
 ### Step 3: Create the Playlist
 
 ```bash
-yt-playlist create --title "Best of [Artist]: Music Videos" --description "Curated best-of music video playlist. [N] videos spanning [year range]. Created with yt-playlist-curator." --privacy unlisted
+"${CLAUDE_PLUGIN_ROOT}/bin/yt-playlist" create --title "Best of [Artist]: Music Videos" --description "Curated best-of music video playlist. [N] videos spanning [year range]. Created with yt-playlist-curator." --privacy unlisted
 ```
 
 This returns JSON with the playlist ID and URL. Save the playlist ID for the next step.
@@ -48,7 +48,7 @@ This returns JSON with the playlist ID and URL. Save the playlist ID for the nex
 Extract all video IDs as a comma-separated list and add them in order:
 
 ```bash
-yt-playlist add-videos --playlist-id [PLAYLIST_ID] --video-ids [id1],[id2],[id3],...
+"${CLAUDE_PLUGIN_ROOT}/bin/yt-playlist" add-videos --playlist-id [PLAYLIST_ID] --video-ids [id1],[id2],[id3],...
 ```
 
 This returns JSON showing which videos were added successfully and which failed.
@@ -70,7 +70,7 @@ Videos: [N added] / [N total]
 - [Song Name] (videoId) — [error reason: deleted, region-locked, etc.]
 ```
 
-Save results to `~/code/ts-yt-playlist/research/[artist-slug]/playlist-result.md`:
+Save results to `~/.config/yt-playlist/research/[artist-slug]/playlist-result.md`:
 
 ```markdown
 # Playlist Result
