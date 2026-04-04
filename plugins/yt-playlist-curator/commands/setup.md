@@ -1,6 +1,6 @@
 ---
-description: Set up the yt-playlist CLI — installs dependencies, walks through Google Cloud project creation, OAuth credentials, and authentication
-allowed-tools: ["Bash", "Read", "Write", "WebFetch"]
+description: Set up the yt-playlist CLI — installs dependencies and authenticates with YouTube
+allowed-tools: ["Bash", "Read", "Write"]
 ---
 
 # yt-playlist-curator Setup
@@ -35,55 +35,22 @@ Then verify the CLI works:
 
 ## Step 3: Google Cloud Credentials
 
-Check if credentials exist:
+Check if credentials already exist:
 
 ```bash
 [ -f ~/.config/yt-playlist/client_secret.json ] && echo "EXISTS" || echo "MISSING"
 ```
 
-If MISSING, walk the user through these steps:
+If MISSING, **copy the bundled credentials** — the plugin ships with a shared Google Cloud project so users don't need to create their own:
 
-1. **Create a Google Cloud project:**
-   Go to https://console.cloud.google.com/projectcreate
-   - Name it anything (e.g., "yt-playlist")
-   - Click Create
-
-2. **Enable the YouTube Data API v3:**
-   Go to https://console.cloud.google.com/apis/library/youtube.googleapis.com
-   - Make sure your new project is selected in the top dropdown
-   - Click "Enable"
-
-3. **Configure the OAuth consent screen:**
-   Go to https://console.cloud.google.com/apis/credentials/consent
-   - Choose "External" user type
-   - Fill in the required fields (app name, user support email, developer email)
-   - On the "Scopes" page, add: `https://www.googleapis.com/auth/youtube`
-   - On the "Test users" page, add your Google email address
-   - Complete the wizard
-
-4. **Create OAuth credentials:**
-   Go to https://console.cloud.google.com/apis/credentials
-   - Click "+ CREATE CREDENTIALS" → "OAuth client ID"
-   - Application type: **Desktop app**
-   - Name it anything
-   - Click Create
-   - Click "DOWNLOAD JSON" on the confirmation dialog
-
-5. **Save the credentials:**
-   Ask the user to either:
-   - **Option A:** Paste the JSON contents, and you will write it to `~/.config/yt-playlist/client_secret.json`
-   - **Option B:** Save the downloaded file manually:
-     ```bash
-     mkdir -p ~/.config/yt-playlist
-     # Move the downloaded file:
-     mv ~/Downloads/client_secret_*.json ~/.config/yt-playlist/client_secret.json
-     ```
-
-If the user pastes the JSON, write it with:
 ```bash
 mkdir -p ~/.config/yt-playlist
+cp "${CLAUDE_PLUGIN_ROOT}/cli/credentials/client_secret.json" ~/.config/yt-playlist/client_secret.json
 ```
-Then use the Write tool to save it to `~/.config/yt-playlist/client_secret.json`.
+
+Tell the user: "Using the bundled Google Cloud project. If you'd rather use your own project (for dedicated API quota), run `/yt-playlist-curator:setup-custom-project` in the future."
+
+If EXISTS, skip this step — the user already has credentials (either bundled or their own).
 
 ## Step 4: Authenticate
 
@@ -93,13 +60,15 @@ Check if already authenticated:
 "${CLAUDE_PLUGIN_ROOT}/bin/yt-playlist" auth status
 ```
 
-If not authenticated or tokens are missing, tell the user:
+If not authenticated or tokens are missing/expired, tell the user:
 
 > I need to open a browser window for Google OAuth. Run this command:
 >
 > `! "${CLAUDE_PLUGIN_ROOT}/bin/yt-playlist" auth login`
 >
 > (The `!` prefix runs it in the current session so the browser opens and the OAuth callback works.)
+>
+> **Note:** When Google warns "This app isn't verified" — this is normal for OAuth Desktop apps. Click "Advanced" → "Go to yt-playlist (unsafe)" to proceed. The app only accesses YouTube on your behalf.
 
 Wait for the user to confirm authentication completed, then verify:
 
@@ -125,7 +94,8 @@ If any value is `false`, diagnose and help fix the specific issue.
 
 ## Important Notes
 
-- The Google Cloud project is free — YouTube Data API v3 has a generous free quota (10,000 units/day)
+- The bundled Google Cloud project is free — YouTube Data API v3 has a 10,000 units/day quota (enough for ~4 full playlist builds per day)
+- If you need more quota, set up your own project with `/yt-playlist-curator:setup-custom-project`
 - OAuth tokens are saved to `~/.config/yt-playlist/tokens.json` and auto-refresh
 - Research data is saved to `~/.config/yt-playlist/research/` and persists across sessions
 - The YouTube account you authenticate with must have a YouTube channel (needed to create playlists)

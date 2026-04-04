@@ -15,4 +15,4 @@ Personal plugin marketplace for Claude Code.
 /yt-playlist-curator:setup
 ```
 
-The setup command walks you through everything: installing dependencies, creating a Google Cloud project, enabling the YouTube API, and authenticating.
+The setup command installs dependencies, copies bundled Google Cloud credentials, and walks you through OAuth login. No manual Google Cloud project creation needed — just authenticate and go.
